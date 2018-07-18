@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Input</title>
+<style>
+.input_container {
+  display: flex;
+  align-items: center;
+}
+.input {
+  width: 200px;
+  font-size: 20px;
+}
+.mock_input {
+  width: auto;
+  display: inline-block;
+  visibility: hidden;
+  overflow:auto;
+  font-size: 20px;
+}
+.icon {
+  position:fixed;
+  display: none;
+  margin-left: 20px;
+  align-items: center;
+}
+.icon::after {
+  content: '😀'
+}
+</style>
+</head>
+<body>
+  <div class='input_container'>
+    <input name='number' class="input" placeholder="type in something" />
+    <span class="icon" />
+  </div>
+  <div class="mock_input"></div>
+<script>
+(() => {
+  const input = document.querySelector('.input[name="number"]');
+  const mockInput = document.getElementsByClassName('mock_input')[0];
+  const icon = document.getElementsByClassName('icon')[0];
+  const defaultMarginLeft = 20;
+  const overflowSize = 160;
+  input.oninput = function() {
+    mockInput.innerText = input.value;
+    var inputSize = mockInput.clientWidth;
+    if (!input.value || inputSize >= overflowSize) {
+      icon.style.display = 'none';
+    } else {
+      icon.style.display = 'flex';
+      icon.style.marginLeft = inputSize + defaultMarginLeft + 'px';
+    }
+  };
+})();
+</script>
+</body>
+</html>
